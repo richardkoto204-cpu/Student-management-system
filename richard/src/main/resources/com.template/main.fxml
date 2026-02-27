@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.template.MainController"
+            style="-fx-background-color: #1E1E2F; -fx-font-family: 'Segoe UI';">
+
+    <!-- HEADER -->
+    <top>
+        <VBox spacing="15" style="-fx-background-color: #2D2D44; -fx-padding: 20;">
+            <Label text="Student Management Dashboard"
+                   style="-fx-font-size: 28px; -fx-text-fill: #FFD369; -fx-font-weight: bold; -fx-font-style: italic;"/>
+
+            <!-- ACTION BUTTONS -->
+            <HBox spacing="12" alignment="CENTER_LEFT">
+
+                <Button fx:id="addStudentButton" onAction="#handleAddStudent"
+                        text="Add Student"
+                        style="-fx-background-color: #4ADE80; -fx-text-fill: #1E1E2F; -fx-font-size: 14px; -fx-font-weight: bold;"/>
+
+                <Button fx:id="editStudentButton" onAction="#handleEditStudent"
+                        text="Edit Details"
+                        style="-fx-background-color: #60A5FA; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold;"/>
+
+                <Button fx:id="deleteStudentButton" onAction="#handleDeleteStudent"
+                        text="Remove Student"
+                        style="-fx-background-color: #F87171; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold;"/>
+
+                <Button fx:id="clearButton" onAction="#handleClearForm"
+                        text="Clear Form"
+                        style="-fx-background-color: #A78BFA; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold;"/>
+
+                <Button fx:id="reportsButton" onAction="#openReportsWindow"
+                        text="View Reports"
+                        style="-fx-background-color: #FBBF24; -fx-text-fill: #1E1E2F; -fx-font-size: 14px; -fx-font-weight: bold;"/>
+
+                <Region HBox.hgrow="ALWAYS"/>
+
+                <ComboBox fx:id="programmeFilter" onAction="#handleProgrammeFilter"
+                          prefWidth="160" promptText="Filter by Program"
+                          style="-fx-background-color: #2D2D44; -fx-text-fill: #FFD369; -fx-font-size: 13px;"/>
+
+                <Button onAction="#handleSortByGpa" text="Sort by GPA"
+                        style="-fx-background-color: #334155; -fx-text-fill: white; -fx-font-size: 13px;"/>
+
+                <Button onAction="#handleSortByName" text="Sort by Name"
+                        style="-fx-background-color: #334155; -fx-text-fill: white; -fx-font-size: 13px;"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- CENTER CONTENT -->
+    <center>
+        <HBox spacing="25" style="-fx-padding: 20;">
+
+            <!-- FORM ON LEFT -->
+            <GridPane hgap="15" vgap="15" prefWidth="450"
+                      style="-fx-background-color: #2D2D44; -fx-padding: 20; -fx-background-radius: 15;">
+
+                <!-- Row 1 -->
+                <Label style="-fx-text-fill: #FFD369;" text="Student ID:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                <TextField fx:id="studentIdField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                <Label style="-fx-text-fill: #FFD369;" text="Full Name:" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+                <TextField fx:id="fullNameField" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+
+                <!-- Row 2 -->
+                <Label style="-fx-text-fill: #FFD369;" text="Programme:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                <TextField fx:id="programmeField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                <Label style="-fx-text-fill: #FFD369;" text="Level:" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                <TextField fx:id="levelField" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+
+                <!-- Row 3 -->
+                <Label style="-fx-text-fill: #FFD369;" text="GPA:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                <TextField fx:id="gpaField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                <Label style="-fx-text-fill: #FFD369;" text="Email Address:" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+                <TextField fx:id="emailField" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+
+                <!-- Row 4 -->
+                <Label style="-fx-text-fill: #FFD369;" text="Phone Number:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                <TextField fx:id="phoneField" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+                <!-- Row 5: Status -->
+                <Label style="-fx-text-fill: #FFD369;" text="Status:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+                <ComboBox fx:id="statusBox" promptText="Select Status" GridPane.columnIndex="1" GridPane.rowIndex="4"
+                          style="-fx-background-color: #1E1E2F; -fx-text-fill: white; -fx-font-size: 13px;"/>
+
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="15"/>
+                    <ColumnConstraints percentWidth="35"/>
+                    <ColumnConstraints percentWidth="15"/>
+                    <ColumnConstraints percentWidth="35"/>
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints/>
+                    <RowConstraints/>
+                    <RowConstraints/>
+                    <RowConstraints/>
+                    <RowConstraints/>
+                </rowConstraints>
+            </GridPane>
+
+            <!-- TABLE ON RIGHT -->
+            <VBox spacing="10" HBox.hgrow="ALWAYS">
+                <Label text="Student Records" style="-fx-text-fill: #FFD369; -fx-font-size: 18px; -fx-font-weight: bold;"/>
+                <TableView fx:id="studentTable"
+                           style="-fx-background-color: #1E1E2F;
+                                  -fx-control-inner-background: #2D2D44;
+                                  -fx-text-fill: white;
+                                  -fx-font-size: 13px;
+                                  -fx-border-color: #FFD369;
+                                  -fx-border-width: 2;">
+                    <columns>
+                        <TableColumn fx:id="idColumn" text="Student ID"/>
+                        <TableColumn fx:id="nameColumn" text="Full Name"/>
+                        <TableColumn fx:id="programmeColumn" text="Programme"/>
+                        <TableColumn fx:id="levelColumn" text="Level"/>
+                        <TableColumn fx:id="gpaColumn" text="GPA"/>
+                        <TableColumn fx:id="emailColumn" text="Email"/>
+                        <TableColumn fx:id="phoneColumn" text="Phone"/>
+                        <TableColumn fx:id="statusColumn" text="Status"/>
+                    </columns>
+                </TableView>
+            </VBox>
+
+        </HBox>
+    </center>
+
+</BorderPane>
